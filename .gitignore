@@ -1,0 +1,6 @@
+**venv**
+**__pycache__**
+manifestos
+tilt_modules
+test_configMap.py
+loki-operator/kubernetes-crd
