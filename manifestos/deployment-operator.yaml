@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki-operator
+  namespace: loki-operator
+spec:
+  selector:
+    matchLabels:
+      app: loki-operator
+  template:
+    metadata:
+      labels:
+        app: loki-operator
+    spec:
+      serviceAccountName: loki-operator
+      imagePullSecrets:
+        - name: docker-pull
+      containers:
+      - name: loki-operator
+        image: nezs/loki-op:0.0.18
+        ports:
+          - containerPort: 8080
+            name: https
+        env:
+          - name: PYTHONPATH
+            value: /app/pyutils

@@ -1,0 +1,53 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: logalerts.jack.experts
+spec:
+  group: jack.experts
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                groups:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      rules:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            alert:
+                              type: string
+                            for:
+                              type: string
+                            labels:
+                              type: object
+                              additionalProperties:
+                                type: string
+                            annotations:
+                              type: object
+                              additionalProperties:
+                                type: string
+                            expr:
+                              x-kubernetes-int-or-string: true
+#                              anyOf:
+#                              - type: string
+#                              - type: integer
+  scope: Namespaced
+  names:
+    plural: logalerts
+    singular: logalert
+    kind: LogAlert
+    shortNames:
+      - la

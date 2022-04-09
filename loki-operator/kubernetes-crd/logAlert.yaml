@@ -1,0 +1,20 @@
+apiVersion: jack.experts/v1
+kind: LogAlert
+metadata:
+  name: test-log6
+  namespace: loki-operator
+  labels:
+    app: loki
+    author: PedroBueno
+spec:
+  groups:
+    - name: teste6
+      rules:
+      - alert: TestAlert6
+        expr: |
+          sum(rate({app="alertmanager"} |= "error" [2m])) by(job) / sum(rate({app="alertmanager"} [2m])) by(job) > 0.05
+        for: 5m
+        labels: 
+          severity: critical
+        annotations: 
+          message: "LOKI OPERATOR ALERT!!"
